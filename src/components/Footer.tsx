@@ -106,7 +106,10 @@ export const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground font-medium">
-                    <p>© {new Date().getFullYear()} Easy AI. Todos os direitos reservados.</p>
+                    <div className="text-center md:text-left">
+                        <p>© {new Date().getFullYear()} Easy AI. Todos os direitos reservados.</p>
+                        <p className="mt-2 text-xs">EASY LAB LTDA 64.923.328/0001-62</p>
+                    </div>
                     <div className="flex gap-8 mt-6 md:mt-0">
                         <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
                         <Link href="#" className="hover:text-white transition-colors">Termos Gerais</Link>
