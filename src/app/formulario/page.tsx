@@ -32,18 +32,113 @@ const employeeOptions = [
   "500+",
 ];
 
+type StepConfig = {
+  field: keyof LeadForm;
+  label: string;
+  type: "text" | "email" | "tel" | "select";
+  required: boolean;
+  placeholder?: string;
+  options?: string[];
+  helper?: string;
+};
+
+const steps: StepConfig[] = [
+  {
+    field: "name",
+    label: "Qual é o seu nome?",
+    type: "text",
+    required: true,
+    placeholder: "Digite seu nome",
+  },
+  {
+    field: "email",
+    label: "Qual é o seu melhor e-mail?",
+    type: "email",
+    required: true,
+    placeholder: "voce@empresa.com",
+  },
+  {
+    field: "phone",
+    label: "Qual é o seu telefone?",
+    type: "tel",
+    required: true,
+    placeholder: "(11) 99999-9999",
+  },
+  {
+    field: "company",
+    label: "Qual é o nome da sua empresa?",
+    type: "text",
+    required: true,
+    placeholder: "Nome da empresa",
+  },
+  {
+    field: "employees",
+    label: "Quantos funcionários sua empresa tem?",
+    type: "select",
+    required: true,
+    options: employeeOptions,
+  },
+  {
+    field: "instagram",
+    label: "Qual é o @ do Instagram da empresa?",
+    type: "text",
+    required: false,
+    placeholder: "@suaempresa",
+    helper: "Opcional",
+  },
+];
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 export default function FormularioPage() {
   const [form, setForm] = useState<LeadForm>(initialForm);
+  const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
+  const [fieldError, setFieldError] = useState<string | null>(null);
 
   const handleChange = (field: keyof LeadForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+    setFieldError(null);
+    setMessage(null);
+  };
+
+  const validateStep = (stepIndex: number): boolean => {
+    const step = steps[stepIndex];
+    const value = form[step.field].trim();
+
+    if (step.required && !value) {
+      setFieldError("Preencha este campo para continuar.");
+      return false;
+    }
+
+    if (step.field === "email" && value && !isValidEmail(value)) {
+      setFieldError("Digite um e-mail válido.");
+      return false;
+    }
+
+    setFieldError(null);
+    return true;
+  };
+
+  const goToNextStep = () => {
+    if (!validateStep(currentStep)) return;
+    setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (currentStep < steps.length - 1) {
+      goToNextStep();
+      return;
+    }
+
+    if (!validateStep(currentStep)) return;
+
     setIsSubmitting(true);
     setMessage(null);
     setIsError(false);
@@ -64,6 +159,7 @@ export default function FormularioPage() {
       }
 
       setForm(initialForm);
+      setCurrentStep(0);
       setMessage("Formulário enviado com sucesso. Em breve entraremos em contato.");
     } catch {
       setIsError(true);
@@ -73,6 +169,11 @@ export default function FormularioPage() {
     }
   };
 
+  const activeStep = steps[currentStep];
+  const activeValue = form[activeStep.field];
+  const progress = ((currentStep + 1) / steps.length) * 100;
+  const isLastStep = currentStep === steps.length - 1;
+
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-primary/30 relative overflow-hidden">
       <div className="absolute inset-0 z-0 bg-background">
@@ -80,128 +181,112 @@ export default function FormularioPage() {
         <div className="absolute top-[40%] -right-[20%] w-[60rem] h-[60rem] bg-accent/20 rounded-full blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 py-14 md:py-20">
-        <Link
-          href="/"
-          className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 hover:bg-white/10 transition-colors"
-        >
-          Voltar para o site
-        </Link>
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-14 md:py-20">
+        <div className="w-full max-w-3xl text-center">
+          <Link
+            href="/"
+            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 hover:bg-white/10 transition-colors"
+          >
+            Voltar para o site
+          </Link>
 
-        <div className="mt-8 max-w-3xl">
-          <p className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider">
-            Fale com a Easy AI
-          </p>
-          <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight">
-            Vamos mapear onde seu negócio está <span className="text-gradient">perdendo dinheiro</span>.
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground max-w-2xl">
-            Preencha o formulário e nossa equipe entra em contato para entender seu cenário e propor um plano de implementação.
-          </p>
-        </div>
+          <div className="mt-8">
+            <p className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider">
+              Fale com a Easy AI
+            </p>
+            <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight">
+              Vamos mapear onde seu negócio está <span className="text-gradient">perdendo dinheiro</span>.
+            </h1>
+            <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Preencha em etapas rápidas. Em menos de 2 minutos você conclui.
+            </p>
+          </div>
 
-        <div className="mt-10 max-w-3xl glass rounded-[2rem] p-7 md:p-10 border border-white/10">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">Nome *</span>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={(event) => handleChange("name", event.target.value)}
-                  required
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                />
-              </label>
-
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">E-mail *</span>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(event) => handleChange("email", event.target.value)}
-                  required
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                />
-              </label>
+          <div className="mt-10 glass rounded-[2rem] p-7 md:p-10 border border-white/10">
+            <div className="mb-7">
+              <div className="flex items-center justify-between text-sm text-white/80">
+                <span>Etapa {currentStep + 1} de {steps.length}</span>
+                <span>{Math.round(progress)}%</span>
+              </div>
+              <div className="mt-3 h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-300" style={{ width: `${progress}%` }} />
+              </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">Telefone *</span>
-                <input
-                  type="tel"
-                  value={form.phone}
-                  onChange={(event) => handleChange("phone", event.target.value)}
-                  required
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                />
-              </label>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-3">
+                <h2 className="text-2xl md:text-3xl font-black leading-tight">{activeStep.label}</h2>
+                {activeStep.helper ? (
+                  <p className="text-sm text-muted-foreground">{activeStep.helper}</p>
+                ) : null}
+              </div>
 
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">Nome da empresa *</span>
-                <input
-                  type="text"
-                  value={form.company}
-                  onChange={(event) => handleChange("company", event.target.value)}
-                  required
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                />
-              </label>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">Quantidade de funcionários *</span>
-                <select
-                  value={form.employees}
-                  onChange={(event) => handleChange("employees", event.target.value)}
-                  required
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                >
-                  <option value="" disabled>
-                    Selecione
-                  </option>
-                  {employeeOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+              <div className="max-w-xl mx-auto">
+                {activeStep.type === "select" ? (
+                  <select
+                    value={activeValue}
+                    onChange={(event) => handleChange(activeStep.field, event.target.value)}
+                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-4 text-white text-center outline-none focus:border-primary transition-colors"
+                    required={activeStep.required}
+                  >
+                    <option value="" disabled>
+                      Selecione uma faixa
                     </option>
-                  ))}
-                </select>
-              </label>
+                    {activeStep.options?.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type={activeStep.type}
+                    value={activeValue}
+                    onChange={(event) => handleChange(activeStep.field, event.target.value)}
+                    placeholder={activeStep.placeholder}
+                    required={activeStep.required}
+                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-4 text-white text-center outline-none focus:border-primary transition-colors"
+                  />
+                )}
+              </div>
 
-              <label className="space-y-2">
-                <span className="text-sm font-medium text-white/90">@ do Instagram (opcional)</span>
-                <input
-                  type="text"
-                  value={form.instagram}
-                  onChange={(event) => handleChange("instagram", event.target.value)}
-                  placeholder="@suaempresa"
-                  className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white outline-none focus:border-primary transition-colors"
-                />
-              </label>
-            </div>
+              {fieldError ? (
+                <p className="rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200 max-w-xl mx-auto">
+                  {fieldError}
+                </p>
+              ) : null}
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full md:w-auto px-10 py-4 rounded-full bg-primary text-white font-bold text-lg hover:bg-blue-500 transition-all glow disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "Enviando..." : "Quero transformar meu negócio"}
-            </button>
+              {message ? (
+                <p
+                  className={`rounded-xl border px-4 py-3 text-sm max-w-xl mx-auto ${
+                    isError
+                      ? "border-red-500/40 bg-red-500/10 text-red-200"
+                      : "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                  }`}
+                >
+                  {message}
+                </p>
+              ) : null}
 
-            {message ? (
-              <p
-                className={`rounded-xl border px-4 py-3 text-sm ${
-                  isError
-                    ? "border-red-500/40 bg-red-500/10 text-red-200"
-                    : "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
-                }`}
-              >
-                {message}
-              </p>
-            ) : null}
-          </form>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+                  disabled={currentStep === 0 || isSubmitting}
+                  className="w-full sm:w-auto px-7 py-3 rounded-full border border-white/20 bg-white/5 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Voltar
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto px-10 py-4 rounded-full bg-primary text-white font-bold text-lg hover:bg-blue-500 transition-all glow disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Enviando..." : isLastStep ? "Enviar formulário" : "Continuar"}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </main>
