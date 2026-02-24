@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Easy AI | Agentes Autônomos & Automação Extrema",
@@ -19,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth dark">
-      <body className={`${inter.className} bg-background text-foreground antialiased min-h-screen selection:bg-primary/30 selection:text-primary-foreground`}>
+      <body className="bg-background text-foreground antialiased min-h-screen selection:bg-primary/30 selection:text-primary-foreground">
         {children}
       </body>
     </html>
