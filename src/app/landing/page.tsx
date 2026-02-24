@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Landing page de aceleração com IA para reduzir custos e transformar processos em lucro.",
 };
 
-const ctaHref = "mailto:contato@easyai.com.br?subject=Quero%20transformar%20meu%20neg%C3%B3cio";
+const ctaHref = "/formulario";
 
 function CTAButton({ large = false }: { large?: boolean }) {
   return (

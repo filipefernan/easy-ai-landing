@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Bot, Zap, TrendingUp, Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 export const Hero = () => {
@@ -73,10 +74,10 @@ export const Hero = () => {
                         transition={{ delay: 0.8, duration: 0.8 }}
                         className="flex flex-col sm:flex-row gap-5"
                     >
-                        <button className="px-8 py-4 rounded-full bg-primary text-white font-semibold text-lg hover:bg-blue-500 transition-all glow flex items-center justify-center gap-2 hover:gap-4 group shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                        <Link href="/formulario" className="px-8 py-4 rounded-full bg-primary text-white font-semibold text-lg hover:bg-blue-500 transition-all glow flex items-center justify-center gap-2 hover:gap-4 group shadow-[0_0_30px_rgba(59,130,246,0.5)]">
                             Transformar meu negócio
                             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                        </button>
+                        </Link>
                         <button className="px-8 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-lg transition-all backdrop-blur-md hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                             Ver Cases Reais
                         </button>

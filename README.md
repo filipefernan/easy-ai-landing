@@ -1,5 +1,23 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Formulário de Leads
+
+- Página: `/formulario`
+- Endpoint: `POST /api/leads`
+- Campos capturados: nome, e-mail, telefone, empresa, quantidade de funcionários e Instagram (opcional)
+
+Para habilitar envio por e-mail, copie `.env.example` para `.env` e configure:
+
+```bash
+SMTP_HOST=
+SMTP_PORT=
+SMTP_SECURE=
+SMTP_USER=
+SMTP_PASS=
+LEAD_TO_EMAIL=
+LEAD_FROM_EMAIL=
+```
+
 ## Getting Started
 
 First, run the development server:

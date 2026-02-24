@@ -59,7 +59,7 @@ export const Navbar = () => {
                         ))}
                     </div>
                     <Link
-                        href="#contact"
+                        href="/formulario"
                         className="px-6 py-2.5 rounded-full bg-white text-primary font-bold text-sm hover:bg-slate-100 transition-all glow hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                     >
                         Falar com Especialista
@@ -94,7 +94,7 @@ export const Navbar = () => {
                                 </Link>
                             ))}
                             <Link
-                                href="#contact"
+                                href="/formulario"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className="mt-4 px-8 py-3 rounded-full bg-primary text-white font-medium text-lg shadow-[0_0_30px_-5px_#0ea5e9]"
                             >
