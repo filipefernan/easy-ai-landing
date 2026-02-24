@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -187,9 +188,18 @@ export default function FormularioPage() {
         <div className="w-full max-w-3xl text-center">
           <Link
             href="/"
-            className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 hover:bg-white/10 transition-colors"
+            className="inline-flex items-center justify-center"
+            aria-label="Voltar para o site principal"
           >
-            Voltar para o site
+            <span className="relative w-36 h-10 md:w-44 md:h-12">
+              <Image
+                src="/Logo_branca.png"
+                alt="Easy AI"
+                fill
+                className="object-contain"
+                priority
+              />
+            </span>
           </Link>
 
           <div className="mt-8">

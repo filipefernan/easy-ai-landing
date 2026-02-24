@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { WHATSAPP_URL } from "@/lib/whatsapp";
 
@@ -45,10 +46,17 @@ export default function ObrigadoPage() {
 
               <Link
                 href="/"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/15 text-white font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/5 border border-white/15 hover:bg-white/10 transition-all inline-flex items-center justify-center"
+                aria-label="Voltar para o site principal"
               >
-                Voltar ao site
-                <ArrowRight className="h-5 w-5" />
+                <span className="relative w-32 h-9 md:w-36 md:h-10">
+                  <Image
+                    src="/Logo_branca.png"
+                    alt="Easy AI"
+                    fill
+                    className="object-contain"
+                  />
+                </span>
               </Link>
             </div>
           </div>
