@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 type LeadForm = {
@@ -93,6 +94,7 @@ function isValidEmail(value: string): boolean {
 }
 
 export default function FormularioPage() {
+  const router = useRouter();
   const [form, setForm] = useState<LeadForm>(initialForm);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -160,7 +162,7 @@ export default function FormularioPage() {
 
       setForm(initialForm);
       setCurrentStep(0);
-      setMessage("Formulário enviado com sucesso. Em breve entraremos em contato.");
+      router.push("/obrigado");
     } catch {
       setIsError(true);
       setMessage("Erro de conexão. Tente novamente em instantes.");
