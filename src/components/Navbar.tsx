@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { WHATSAPP_URL } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -58,12 +60,15 @@ export const Navbar = () => {
                             </Link>
                         ))}
                     </div>
-                    <Link
-                        href="/formulario"
-                        className="px-6 py-2.5 rounded-full bg-white text-primary font-bold text-sm hover:bg-slate-100 transition-all glow hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                    <a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-2.5 rounded-full bg-white text-primary font-bold text-sm hover:bg-slate-100 transition-all glow hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.3)] inline-flex items-center gap-2"
                     >
                         Falar com Especialista
-                    </Link>
+                        <WhatsAppIcon className="w-4 h-4" />
+                    </a>
                 </nav>
 
                 {/* Mobile Toggle */}
@@ -93,13 +98,16 @@ export const Navbar = () => {
                                     {link.name}
                                 </Link>
                             ))}
-                            <Link
-                                href="/formulario"
+                            <a
+                                href={WHATSAPP_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="mt-4 px-8 py-3 rounded-full bg-primary text-white font-medium text-lg shadow-[0_0_30px_-5px_#0ea5e9]"
+                                className="mt-4 px-8 py-3 rounded-full bg-primary text-white font-medium text-lg shadow-[0_0_30px_-5px_#0ea5e9] inline-flex items-center gap-2"
                             >
-                                Começar Agora
-                            </Link>
+                                Falar com Especialista
+                                <WhatsAppIcon className="w-5 h-5" />
+                            </a>
                         </motion.div>
                     )}
                 </AnimatePresence>

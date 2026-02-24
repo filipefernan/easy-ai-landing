@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 
 export const metadata: Metadata = {
   title: "Easy AI | Agentes Autônomos & Automação Extrema",
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="pt-BR" className="scroll-smooth dark">
       <body className="bg-background text-foreground antialiased min-h-screen selection:bg-primary/30 selection:text-primary-foreground">
         {children}
+        <WhatsAppFloatingButton />
       </body>
     </html>
   );
