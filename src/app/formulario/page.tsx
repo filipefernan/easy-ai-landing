@@ -202,20 +202,20 @@ export default function FormularioPage() {
             </span>
           </Link>
 
-          <div className="mt-8">
+          <div className="mt-7">
             <p className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider">
               Fale com a Easy AI
             </p>
-            <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-tight leading-tight">
+            <h1 className="mt-5 text-3xl md:text-4xl font-black tracking-tight leading-tight">
               Vamos mapear onde seu negócio está <span className="text-gradient">perdendo dinheiro</span>.
             </h1>
-            <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Preencha em etapas rápidas. Em menos de 2 minutos você conclui.
             </p>
           </div>
 
-          <div className="mt-10 glass rounded-[2rem] p-7 md:p-10 border border-white/10">
-            <div className="mb-7">
+          <div className="mt-8 glass rounded-[2rem] p-6 md:p-8 border border-white/10">
+            <div className="mb-6">
               <div className="flex items-center justify-between text-sm text-white/80">
                 <span>Etapa {currentStep + 1} de {steps.length}</span>
                 <span>{Math.round(progress)}%</span>
@@ -226,8 +226,8 @@ export default function FormularioPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-3">
-                <h2 className="text-2xl md:text-3xl font-black leading-tight">{activeStep.label}</h2>
+              <div className="space-y-2">
+                <h2 className="text-xl md:text-2xl font-black leading-tight">{activeStep.label}</h2>
                 {activeStep.helper ? (
                   <p className="text-sm text-muted-foreground">{activeStep.helper}</p>
                 ) : null}
@@ -238,7 +238,7 @@ export default function FormularioPage() {
                   <select
                     value={activeValue}
                     onChange={(event) => handleChange(activeStep.field, event.target.value)}
-                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-4 text-white text-center outline-none focus:border-primary transition-colors"
+                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white text-center outline-none focus:border-primary transition-colors"
                     required={activeStep.required}
                   >
                     <option value="" disabled>
@@ -257,7 +257,7 @@ export default function FormularioPage() {
                     onChange={(event) => handleChange(activeStep.field, event.target.value)}
                     placeholder={activeStep.placeholder}
                     required={activeStep.required}
-                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-4 text-white text-center outline-none focus:border-primary transition-colors"
+                    className="w-full rounded-xl border border-white/15 bg-background/70 px-4 py-3 text-white text-center outline-none focus:border-primary transition-colors"
                   />
                 )}
               </div>
@@ -292,7 +292,7 @@ export default function FormularioPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto px-10 py-4 rounded-full bg-primary text-white font-bold text-lg hover:bg-blue-500 transition-all glow disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto px-9 py-3.5 rounded-full bg-primary text-white font-bold text-base md:text-lg hover:bg-blue-500 transition-all glow disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Enviando..." : isLastStep ? "Enviar formulário" : "Continuar"}
                 </button>

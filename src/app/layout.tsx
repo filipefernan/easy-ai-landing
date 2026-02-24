@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: "Easy AI | Agentes Autônomos & Automação Extrema",
   description: "Implementação de Inteligência Artificial e Automação para empresas. Escalamos resultados e reduzimos custos operativos com Agentes de IA.",
   icons: {
-    icon: "/icone.png",
-    shortcut: "/icone.png",
-    apple: "/icone.png",
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
