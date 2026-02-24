@@ -161,6 +161,13 @@ export default function FormularioPage() {
         return;
       }
 
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", {
+          method: "formulario_site",
+          source: "easy_ai",
+        });
+      }
+
       setForm(initialForm);
       setCurrentStep(0);
       router.push("/obrigado");

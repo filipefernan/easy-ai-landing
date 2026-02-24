@@ -16,7 +16,15 @@ SMTP_USER=
 SMTP_PASS=
 LEAD_TO_EMAIL=
 LEAD_FROM_EMAIL=
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
+
+### Métricas de acesso (GA4)
+
+- Configure `NEXT_PUBLIC_GA_MEASUREMENT_ID` no ambiente.
+- O site passa a registrar pageviews automaticamente.
+- O envio de formulário dispara o evento `generate_lead`.
+- No GA4, marque `generate_lead` como conversão.
 
 ## Getting Started
 

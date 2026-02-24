@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Easy AI | Agentes Autônomos & Automação Extrema",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth dark">
       <body className="bg-background text-foreground antialiased min-h-screen selection:bg-primary/30 selection:text-primary-foreground">
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         {children}
         <WhatsAppFloatingButton />
       </body>
