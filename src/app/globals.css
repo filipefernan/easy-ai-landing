@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+:root {
+  /* Deep space black inspired by Evoryx */
+  --background: #05050A;
+  --foreground: #f8fafc;
+
+  /* Richer, more futuristic neon blues as requested */
+  --primary: #0e26dc;
+  --primary-foreground: #ffffff;
+  --secondary: #0A0F1E;
+  --secondary-foreground: #2959f8;
+  --accent: #54b6fc;
+  --accent-foreground: #0A0F1E;
+  --muted: #0f172a;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  scroll-behavior: smooth;
+  /* Add subtle grain overlay globally for premium feel, updated to new blue */
+  background-image: radial-gradient(circle at top, rgba(14, 38, 220, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at bottom right, rgba(41, 89, 248, 0.03) 0%, transparent 40%);
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/40 backdrop-blur-2xl border border-white/5;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .glow {
+    box-shadow: 0 0 30px -5px rgba(41, 89, 248, 0.4);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glow:hover {
+    box-shadow: 0 0 40px 0px rgba(41, 89, 248, 0.6);
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #0e26dc, #2959f8, #54b6fc, #4698fb, #54a4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(41, 89, 248, 0.5);
+  }
+}
