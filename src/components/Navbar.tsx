@@ -26,15 +26,20 @@ export const Navbar = () => {
         { name: "Casos de Sucesso", href: "#cases" },
     ];
 
+    const shellClasses = scrolled
+        ? "bg-[linear-gradient(180deg,rgba(39,73,238,0.96)_0%,rgba(24,45,197,0.96)_100%)] shadow-blue-500/20"
+        : "bg-[linear-gradient(180deg,rgba(39,73,238,0.88)_0%,rgba(24,45,197,0.88)_100%)] shadow-blue-500/15";
+
     return (
         <motion.header
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`fixed top-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[90%] max-w-7xl z-50 transition-all duration-300 rounded-full border border-white/20 backdrop-blur-md shadow-2xl shadow-blue-500/20 py-4 ${scrolled ? "bg-gradient-to-r from-[#0e26dc]/90 via-[#2959f8]/90 to-[#54b6fc]/90" : "bg-gradient-to-r from-[#0e26dc]/70 via-[#2959f8]/70 to-[#54b6fc]/70"
-                }`}
+            className={`fixed top-4 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[90%] max-w-7xl z-50 overflow-hidden transition-all duration-300 rounded-full border border-white/20 backdrop-blur-md shadow-2xl py-4 ${shellClasses}`}
         >
-            <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+            <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(111,196,255,0.18)_0%,rgba(111,196,255,0.06)_34%,transparent_72%)]" />
+            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/30" />
+            <div className="relative z-10 container mx-auto px-6 md:px-12 flex items-center justify-between">
                 <Link href="/" className="relative z-50 flex items-center gap-2">
                     <div className="relative w-28 h-8 md:w-36 md:h-10 mt-1">
                         <Image
